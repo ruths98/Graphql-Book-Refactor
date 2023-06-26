@@ -1,5 +1,5 @@
 const { Tech, Matchup } = require('../models');
-//change these to proper params. I don't think we need a mutation
+//see user-controller.js and the typeDefs
 const resolvers = {
   Query: {
   
@@ -9,18 +9,18 @@ const resolvers = {
     },
   },
   Mutation: {
-    // createMatchup: async (parent, args) => {
-    //   const matchup = await Matchup.create(args);
-    //   return matchup;
-    // },
-    // createVote: async (parent, { _id, techNum }) => {
-    //   const vote = await Matchup.findOneAndUpdate(
-    //     { _id },
-    //     { $inc: { [`tech${techNum}_votes`]: 1 } },
-    //     { new: true }
-    //   );
-    //   return vote;
-    // },
+    saveBook: async (parent, args) => {
+      const matchup = await Matchup.createOne(args);
+      return matchup;
+    },
+    deleteBook: async (parent, { _id, techNum }) => {
+      const bookList = await books.findOneAndDelete(
+        { _id },
+        { $inc: { [`tech${techNum}_votes`]: 1 } },
+        { new: true }
+      );
+      return bookList;
+    },
   },
 };
 

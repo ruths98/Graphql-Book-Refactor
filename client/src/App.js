@@ -1,11 +1,15 @@
 import React from 'react';
+import { client } from "./ApolloClient/client" //imported client
+import { ApolloProvider } from '@apollo/client';//imported ApolloProvider
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SearchBooks from './pages/SearchBooks';
 import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
+//wrapped everything in ApolloProvider component
 function App() {
   return (
+    <ApolloProvider client = {client}>
     <Router>
       <>
         <Navbar />
@@ -16,6 +20,7 @@ function App() {
         </Switch>
       </>
     </Router>
+    </ApolloProvider>
   );
 }
 
