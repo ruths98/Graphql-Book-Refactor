@@ -3,42 +3,45 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   
   type Book {
-    bookId: Integer //this is not _id but id value from book api
+    bookId: ID 
     title: String!
-    authors: String //array???
+    authors: [Authors]
     description: String,
     image:?,
     link:String
   }
 
     type Query {
-    me: [User]
-  }
-
-  type Mutation { 
-    createMatchup(tech1: String!, tech2: String!): Matchup
-    createVote(_id: String!, techNum: Int!): Matchup
-  }
-  {
-    login(email, password):Auth type?
-    addUser(username!,email!,password!):Auth type
-    saveBook(book author array, description, title, bookId, image, link): User type
-    //look into an input type to handle these params
-    removeBok(bookId!):User type
+    me: User
   }
 
   type User{
-    _id: Integer,
+    _id: ID,
     username: String,
     email: String,
-    bookCount: Integer,
+    bookCount: Int,
     savedBooks: [Book], 
     }
 
     type Auth {
-      token: Integer,
-      user: [User]
+      token: ID!,
+      user: User
     }
+    
+    type Mutation {
+    login(email: Email!, password: Password!):Auth type?
+    addUser(username: Username! ,email: email!,password: password!):Auth type
+    saveBook(
+      input BookInput {
+        author: [Author]
+        title: String
+        description: String
+        bookId: Int,
+        Image:
+      }
+      ): User
+    removeBook(bookId: bookId!):User
+  }
 `;
-
+//book ID is not _id but id value from book api
 module.exports = typeDefs;

@@ -1,0 +1,1 @@
+// GET_ME query which will execute the 'me' query using apollo server
