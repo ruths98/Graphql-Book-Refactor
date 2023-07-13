@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-
-import { createUser } from '../utils/API';
+import { useMutation } from '@apollo/client' //import useMutation function
+import { ADD_USER } from '../mutations' //import ADD_USER mutation
+// import { createUser } from '../utils/API'; replacing with mutation
 import Auth from '../utils/auth';
 
 //TODO: replace addUser() imported from API with ADD_USER mutation
@@ -32,7 +33,8 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await createUser(userFormData);
+      // const response = await createUser(userFormData);
+      const [ADD_USER, { error, data }] = useMutation(ADD_USER)
 
       if (!response.ok) {
         throw new Error('something went wrong!');

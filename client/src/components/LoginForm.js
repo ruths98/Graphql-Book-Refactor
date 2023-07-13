@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client' //import useMutation function
 import { LOGIN_USER } from '../mutations' //import LOGIN_USER mutation
-import { loginUser } from '../utils/API';
+// import { loginUser } from '../utils/API'; using mutation ^^^ in place of api
 import Auth from '../utils/auth';
 
-//TODO: replace loginUser) from api with LOGIN_USER mutation
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -29,8 +29,8 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await loginUser(userFormData);
-
+      // const response = await loginUser(userFormData);
+      const [loginUser, { error, data }] = useMutation(LOGIN_USER)
       if (!response.ok) {
         throw new Error('something went wrong!');
       }

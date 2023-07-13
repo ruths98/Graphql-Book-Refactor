@@ -1,5 +1,5 @@
-const { Tech, Matchup } = require('../models');
-//see user-controller.js and the typeDefs
+const { User} = require('../models')
+
 const resolvers = {
   Query: {
   
@@ -9,14 +9,22 @@ const resolvers = {
     },
   },
   Mutation: {
-    saveBook: async (parent, args) => {
-      const matchup = await Matchup.createOne(args);
-      return matchup;
+    addUser: async (parent, args) => {
+      const newUser = await newUser.createOne(args);
+      return newUser;
     },
-    deleteBook: async (parent, { _id, techNum }) => {
+
+    loginUser: async (parent, args) => {
+const loggedIn =await loggedIn.createOne(args);
+      return loggedIn;
+    },
+    saveBook: async (parent, args) => {
+      const bookList = await bookList.createOne(args);
+      return bookList;
+    },
+    removeBook: async (parent, {bookId}) => {
       const bookList = await books.findOneAndDelete(
-        { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
+        { bookId },
         { new: true }
       );
       return bookList;
